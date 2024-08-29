@@ -1,14 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { FormGeneratorService } from '../../services/form-generator.service';
-import { FormFieldConfig } from '../../models/form-field.model';
+import { FieldStyle, FormFieldConfig } from '../../models/form-field.model';
 
 @Component({
   selector: 'app-dynamic-form',
   template: `
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <ng-container *ngFor="let field of fields">
-        <app-form-field [field]="field" [form]="form"></app-form-field>
+        <app-form-field 
+          [field]="field" 
+          [form]="form"
+          [globalClass]="globalClass"
+          [globalStyle]="globalStyle"
+          [globalErrorClass]="globalErrorClass"
+          [globalErrorStyle]="globalErrorStyle">
+        </app-form-field>
       </ng-container>
       <button *ngIf="isRootForm" type="submit" [disabled]="!form.valid">Submit</button>
     </form>
@@ -37,6 +44,10 @@ export class DynamicFormComponent {
   @Input() fields: FormFieldConfig[] = [];
   @Input() formGroup?: FormGroup;
   @Input() isRootForm: boolean = true;
+  @Input() globalClass?: string;
+  @Input() globalStyle?: FieldStyle;
+  @Input() globalErrorClass?: string;
+  @Input() globalErrorStyle?: FieldStyle;
 
   @Output() formSubmit = new EventEmitter<any>();
 

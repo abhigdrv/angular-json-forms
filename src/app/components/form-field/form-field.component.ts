@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormFieldConfig } from '../../models/form-field.model';
+import { FieldStyle, FormFieldConfig } from '../../models/form-field.model';
 import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 import { FormGeneratorService } from '../../services/form-generator.service';
 
@@ -7,34 +7,50 @@ import { FormGeneratorService } from '../../services/form-generator.service';
   selector: 'app-form-field',
   template: `
     <div [formGroup]="form">
-      <label [for]="field.name">{{ field.label }}</label>
+      <label [for]="field.name" [ngStyle]="getLabelStyle()">{{ field.label }}</label>
       
       <ng-container [ngSwitch]="field.type">
-        <input *ngSwitchCase="'text'" [formControlName]="field.name" [id]="field.name" type="text">
-        <input *ngSwitchCase="'number'" [formControlName]="field.name" [id]="field.name" type="number">
-        <input *ngSwitchCase="'email'" [formControlName]="field.name" [id]="field.name" type="email">
-        <input *ngSwitchCase="'password'" [formControlName]="field.name" [id]="field.name" type="password">
+        <input *ngSwitchCase="'text'" [formControlName]="field.name" [id]="field.name" type="text"
+               [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'number'" [formControlName]="field.name" [id]="field.name" type="number"
+               [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'email'" [formControlName]="field.name" [id]="field.name" type="email"
+               [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'password'" [formControlName]="field.name" [id]="field.name" type="password"
+               [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
         
-        <select *ngSwitchCase="'select'" [formControlName]="field.name" [id]="field.name">
+        <select *ngSwitchCase="'select'" [formControlName]="field.name" [id]="field.name"
+                [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
           <option *ngFor="let option of field.options" [value]="option.key">{{ option.value }}</option>
         </select>
         
         <ng-container *ngSwitchCase="'radio'">
           <div *ngFor="let option of field.options">
-            <input type="radio" [formControlName]="field.name" [value]="option.key" [id]="option.key">
+            <input type="radio" [formControlName]="field.name" [value]="option.key" [id]="option.key"
+                   [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
             <label [for]="option.key">{{ option.value }}</label>
           </div>
         </ng-container>
         
         <ng-container *ngSwitchCase="'checkbox'">
-          <input type="checkbox" [formControlName]="field.name" [id]="field.name">
+          <input type="checkbox" [formControlName]="field.name" [id]="field.name"
+                 [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
         </ng-container>
         
-        <textarea *ngSwitchCase="'textarea'" [formControlName]="field.name" [id]="field.name"></textarea>
+        <textarea *ngSwitchCase="'textarea'" [formControlName]="field.name" [id]="field.name"
+                  [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()"></textarea>
         
         <ng-container *ngSwitchCase="'formGroup'">
           <ng-container *ngIf="isFormGroup(field.name)">
-            <app-dynamic-form [formGroup]="getAsFormGroup(field.name)" [fields]="field.formGroup!.fields" [isRootForm]="false"></app-dynamic-form>
+            <app-dynamic-form 
+              [formGroup]="getAsFormGroup(field.name)" 
+              [fields]="field.formGroup!.fields"
+              [isRootForm]="false"
+              [globalClass]="globalClass"
+              [globalStyle]="globalStyle"
+              [globalErrorClass]="globalErrorClass"
+              [globalErrorStyle]="globalErrorStyle">
+            </app-dynamic-form>
           </ng-container>
         </ng-container>
         
@@ -43,7 +59,15 @@ import { FormGeneratorService } from '../../services/form-generator.service';
             <div [formArrayName]="field.name">
               <div *ngFor="let control of getFormArray(field.name).controls; let i = index">
                 <ng-container *ngIf="isFormGroup(control)">
-                  <app-dynamic-form [formGroup]="getAsFormGroup(control)" [fields]="field.formArray!.fields" [isRootForm]="false"></app-dynamic-form>
+                  <app-dynamic-form 
+                    [formGroup]="getAsFormGroup(control)" 
+                    [fields]="field.formArray!.fields"
+                    [isRootForm]="false"
+                    [globalClass]="globalClass"
+                    [globalStyle]="globalStyle"
+                    [globalErrorClass]="globalErrorClass"
+                    [globalErrorStyle]="globalErrorStyle">
+                  </app-dynamic-form>
                 </ng-container>
                 <button type="button" (click)="removeFormArrayField(field.name, i)">Remove</button>
               </div>
@@ -53,7 +77,7 @@ import { FormGeneratorService } from '../../services/form-generator.service';
         </ng-container>
       </ng-container>
       
-      <div *ngIf="form.get(field.name)?.invalid && (form.get(field.name)?.dirty || form.get(field.name)?.touched)">
+      <div *ngIf="form.get(field.name)?.invalid && (form.get(field.name)?.dirty || form.get(field.name)?.touched)" [ngClass]="globalErrorClass">
         <small *ngIf="form.get(field.name)?.errors?.['required']">This field is required</small>
         <small *ngIf="form.get(field.name)?.errors?.['email']">Please enter a valid email</small>
         <!-- Add more error messages as needed -->
@@ -69,15 +93,28 @@ import { FormGeneratorService } from '../../services/form-generator.service';
       display: block;
       margin-bottom: 0.5rem;
     }
-    input, select, textarea {
-      width: 100%;
-      padding: 0.5rem;
-    }
   `]
 })
 export class FormFieldComponent {
   @Input() field!: FormFieldConfig;
   @Input() form!: FormGroup;
+  @Input() globalClass?: string;
+  @Input() globalStyle?: FieldStyle;
+  @Input() globalErrorClass?: string;
+  @Input() globalErrorStyle?: FieldStyle;
+
+  getFieldClass(): string {
+    return `${this.globalClass || ''} ${this.field.class || ''}`.trim();
+  }
+
+  getFieldStyle(): FieldStyle {
+    return { ...this.globalStyle, ...this.field.style };
+  }
+
+  getLabelStyle(): FieldStyle {
+    // You can define specific label styles here
+    return {};
+  }
 
   constructor(private formGenerator: FormGeneratorService) {}
 

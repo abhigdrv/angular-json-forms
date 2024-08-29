@@ -1,8 +1,10 @@
-import { ValidatorFn } from '@angular/forms';
-
 export interface ValidationConfig {
   name: string;
   validator: any;
+}
+
+export interface FieldStyle {
+  [key: string]: string;
 }
 
 export interface FormFieldConfig {
@@ -17,8 +19,14 @@ export interface FormFieldConfig {
     fields: FormFieldConfig[];
     initialCount?: number;
   };
+  class?: string;
+  style?: FieldStyle;
 }
 
 export interface FormConfig {
   fields: FormFieldConfig[];
+  globalClass?: string;
+  globalStyle?: FieldStyle;
+  globalErrorClass?: string;
+  globalErrorStyle?: FieldStyle;
 }

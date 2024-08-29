@@ -1,2 +1,9 @@
 <h1>Dynamic Form Example</h1>
-    <app-dynamic-form [fields]="formConfig.fields" (formSubmit)="onFormSubmit($event)"></app-dynamic-form>
+<app-dynamic-form 
+  [fields]="formConfig.fields"
+  [globalClass]="formConfig.globalClass"
+  [globalStyle]="formConfig.globalStyle"
+  [globalErrorClass]="formConfig.globalErrorClass"
+  [globalErrorStyle]="formConfig.globalErrorStyle"
+  (formSubmit)="onFormSubmit($event)">
+</app-dynamic-form>

@@ -8,6 +8,18 @@ import { FormConfig } from './models/form-field.model';
 })
 export class AppComponent {
   formConfig: FormConfig = {
+    globalClass: 'form-control',
+    globalStyle: {
+      'font-family': 'Arial, sans-serif',
+      'font-size': '14px',
+      'padding': '5px'
+    },
+    globalErrorClass: 'error',
+    globalErrorStyle: {
+      'color': 'red',
+      'font-size': '9px',
+      'padding': '5px'
+    },
     fields: [
       {
         name: 'name',
@@ -15,7 +27,11 @@ export class AppComponent {
         type: 'text',
         validations: [
           { name: 'required', validator: null }
-        ]
+        ],
+        class: 'name-field',
+        style: {
+          'font-weight': 'bold'
+        }
       },
       {
         name: 'email',
@@ -24,7 +40,10 @@ export class AppComponent {
         validations: [
           { name: 'required', validator: null },
           { name: 'email', validator: null }
-        ]
+        ],
+        style: {
+          'color': 'blue'
+        }
       },
       {
         name: 'address',
@@ -53,7 +72,8 @@ export class AppComponent {
               label: 'Zip Code',
               type: 'text',
               validations: [
-                { name: 'required', validator: null }
+                { name: 'required', validator: null },
+                { name: 'pattern', validator: '^[0-9]{5}(?:-[0-9]{4})?$' }
               ]
             }
           ]
@@ -71,7 +91,8 @@ export class AppComponent {
               label: 'Phone Number',
               type: 'text',
               validations: [
-                { name: 'required', validator: null }
+                { name: 'required', validator: null },
+                { name: 'pattern', validator: '^[0-9]{10}$' }
               ]
             }
           ]

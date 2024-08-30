@@ -1,16 +1,16 @@
+<section class="header">JSON Form Examples</section>
 <section class="home">
   <div class="sidebar">
-    <h2>Dynamic Form Examples</h2>
     <ul>
-        <li (click)="selectForm('basic')">Basic Form</li>
-        <li (click)="selectForm('advanced')">Advanced Form</li>
-        <li (click)="selectForm('nested')">Nested Form</li>
-        <li (click)="selectForm('array')">Form Array</li>
-        <li (click)="selectForm('validation')">Custom Validation</li>
+        <li [ngClass]="selectedFormTitle == 'Basic Form'?'selected':''" (click)="selectForm('basic')">Basic Form</li>
+        <li [ngClass]="selectedFormTitle == 'Advanced Form'?'selected':''" (click)="selectForm('advanced')">Advanced Form</li>
+        <li [ngClass]="selectedFormTitle == 'Nested Form'?'selected':''" (click)="selectForm('nested')">Nested Form</li>
+        <li [ngClass]="selectedFormTitle == 'Form Array'?'selected':''" (click)="selectForm('array')">Form Array</li>
+        <li [ngClass]="selectedFormTitle == 'Custom Validation Form'?'selected':''" (click)="selectForm('validation')">Custom Validation</li>
     </ul>
   </div>
   <div class="main-content">
-    <h1>{{ selectedFormTitle }}</h1>
+    <h1 class="heading" *ngIf="selectedFormTitle == 'Select a form'">{{ selectedFormTitle }}</h1>
     <ng-container *ngIf="selectedFormTitle == 'Basic Form'">
       <app-dynamic-form 
         *ngIf="basicFormConfig"

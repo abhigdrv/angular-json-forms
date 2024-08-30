@@ -1,4 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    margin: 0;
+    top: 0;
+    background-image: url(./assets/overlay.png), linear-gradient(45deg, #6E436C 25%, #2A4584 75%);
+    background-size: 256px, cover;
+    background-position: center, center;
+    background-repeat: repeat, no-repeat;
+}
 .error small{
     color: red;
+}
+label{
+    color: white;
 }

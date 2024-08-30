@@ -117,7 +117,7 @@ export class AppComponent {
     globalStyle: {
       'font-family': 'Arial, sans-serif',
       'font-size': '14px',
-      'padding': '5px'
+      'padding': '5px',
     },
     globalErrorClass: 'error-message',
     globalErrorStyle: {

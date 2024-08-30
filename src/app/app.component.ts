@@ -31,6 +31,13 @@ export class AppComponent {
         class: 'name-field',
         style: {
           'font-weight': 'bold'
+        },
+        events: {
+          click: (event) => console.log('Name clicked', event),
+          hover: {
+            mouseenter: (event) => console.log('Mouse entered name field', event),
+            mouseleave: (event) => console.log('Mouse left name field', event)
+          }
         }
       },
       {

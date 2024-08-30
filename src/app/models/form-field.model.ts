@@ -41,6 +41,20 @@ export interface FormFieldConfig {
   cols?: number;
   autocomplete?: string;
   required?: boolean;
+  events?: FieldEvent;
+}
+
+export interface FieldEvent {
+  click?: (event: MouseEvent) => void;
+  hover?: {
+    mouseenter?: (event: MouseEvent) => void;
+    mouseleave?: (event: MouseEvent) => void;
+  };
+  focus?: {
+    focusin?: (event: FocusEvent) => void;
+    focusout?: (event: FocusEvent) => void;
+  };
+  [key: string]: any;
 }
 
 export interface FormConfig {

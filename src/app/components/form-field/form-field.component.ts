@@ -80,7 +80,19 @@ import { FormGeneratorService } from '../../services/form-generator.service';
       <div *ngIf="form.get(field.name)?.invalid && (form.get(field.name)?.dirty || form.get(field.name)?.touched)" [ngClass]="globalErrorClass">
         <small *ngIf="form.get(field.name)?.errors?.['required']">This field is required</small>
         <small *ngIf="form.get(field.name)?.errors?.['email']">Please enter a valid email</small>
-        <!-- Add more error messages as needed -->
+        <small *ngIf="form.get(field.name)?.errors?.['minlength']">Input is too short</small>
+        <small *ngIf="form.get(field.name)?.errors?.['maxlength']">Input is too long</small>
+        <small *ngIf="form.get(field.name)?.errors?.['pattern']">Input does not match the required pattern</small>
+        <small *ngIf="form.get(field.name)?.errors?.['min']">Input is below the minimum value</small>
+        <small *ngIf="form.get(field.name)?.errors?.['max']">Input exceeds the maximum value</small>
+        <small *ngIf="form.get(field.name)?.errors?.['whitespace']">Input cannot be only whitespace</small>
+        <small *ngIf="form.get(field.name)?.errors?.['passwordMismatch']">Passwords do not match</small>
+        <small *ngIf="form.get(field.name)?.errors?.['invalidDate']">Please enter a valid date</small>
+        <small *ngIf="form.get(field.name)?.errors?.['invalidUrl']">Please enter a valid URL</small>
+        <small *ngIf="form.get(field.name)?.errors?.['invalidCreditCard']">Please enter a valid credit card number</small>
+        <small *ngIf="form.get(field.name)?.errors?.['invalidPhoneNumber']">Please enter a valid phone number</small>
+        <small *ngIf="form.get(field.name)?.errors?.['uniqueUsername']">This username is already taken</small>
+        <small *ngIf="form.get(field.name)?.errors?.['customError']">{{ form.get(field.name)?.errors?.['customError'] }}</small>
       </div>
     </div>
   `,

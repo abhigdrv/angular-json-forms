@@ -7,8 +7,8 @@ import { FormGeneratorService } from '../../services/form-generator.service';
   selector: 'app-form-field',
   template: `
     <div [formGroup]="form">
+      <ng-container *ngIf="isFieldVisible(field)">
       <label [for]="field.name" [ngStyle]="getLabelStyle()">{{ field.label }}</label>
-      
       <ng-container [ngSwitch]="field.type">
         <!-- Text inputs -->
         <input *ngSwitchCase="'text'" [formControlName]="field.name" 
@@ -278,6 +278,7 @@ import { FormGeneratorService } from '../../services/form-generator.service';
         <small *ngIf="form.get(field.name)?.errors?.['uniqueUsername']">This username is already taken</small>
         <small *ngIf="form.get(field.name)?.errors?.['customError']">{{ form.get(field.name)?.errors?.['customError'] }}</small>
       </div>
+      </ng-container>
     </div>
   `,
   styles: [`
@@ -366,5 +367,12 @@ export class FormFieldComponent {
       return (fieldHandler && fieldHandler[subType]);
     }
     return fieldHandler;
+  }
+
+  isFieldVisible(field: FormFieldConfig): boolean {
+    if (typeof field.visibleWhen === 'function') {
+      return field.visibleWhen(this.form.value);  // Evaluate the function
+    }
+    return true;  // Default to visible if no condition is provided
   }
 }

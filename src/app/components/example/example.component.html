@@ -8,6 +8,7 @@
         <li [ngClass]="selectedFormTitle == 'Form Array'?'selected':''" (click)="selectForm('array')">Form Array</li>
         <li [ngClass]="selectedFormTitle == 'Custom Validation Form'?'selected':''" (click)="selectForm('validation')">Custom Validation</li>
         <li [ngClass]="selectedFormTitle == 'Multi Step Form'?'selected':''" (click)="selectForm('multiStep')">Multi Step Form</li>
+        <li [ngClass]="selectedFormTitle == 'Conditional Form'?'selected':''" (click)="selectForm('conditional')">Conditional Form</li>
     </ul>
   </div>
   <div class="main-content">
@@ -75,6 +76,17 @@
         [globalStyle]="multiStepFormConfig.globalStyle"
         [globalErrorClass]="multiStepFormConfig.globalErrorClass"
         [globalErrorStyle]="multiStepFormConfig.globalErrorStyle"
+        (formSubmit)="onFormSubmit($event)">
+      </app-dynamic-form>
+    </ng-container>
+    <ng-container *ngIf="selectedFormTitle == 'Conditional Form'">
+      <app-dynamic-form 
+        *ngIf="conditionalFormConfig"
+        [fields]="conditionalFormConfig.fields"
+        [globalClass]="conditionalFormConfig.globalClass"
+        [globalStyle]="conditionalFormConfig.globalStyle"
+        [globalErrorClass]="conditionalFormConfig.globalErrorClass"
+        [globalErrorStyle]="conditionalFormConfig.globalErrorStyle"
         (formSubmit)="onFormSubmit($event)">
       </app-dynamic-form>
     </ng-container>

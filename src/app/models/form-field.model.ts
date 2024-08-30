@@ -43,6 +43,7 @@ export interface FormFieldConfig {
   autocomplete?: string;
   required?: boolean;
   events?: FieldEvent;
+  visibleWhen?: (formValue: any) => boolean;
 }
 
 export interface FieldEvent {

@@ -385,6 +385,43 @@ export class ExampleComponent {
     ]
   };
   
+  // 7. Conditional Fields Form Configuration
+  conditionalFormConfig: FormConfig = {
+    ...this.globalFormConfig,
+    fields: [
+      {
+        name: 'employmentStatus',
+        label: 'Employment Status',
+        type: 'select',
+        options: [
+          { key: 'employed', value: 'Employed' },
+          { key: 'selfEmployed', value: 'Self-employed' },
+          { key: 'unemployed', value: 'Unemployed' }
+        ],
+        validations: [
+          { name: 'required', validator: null, message: 'Please select your employment status' }
+        ]
+      },
+      {
+        name: 'companyName',
+        label: 'Company Name',
+        type: 'text',
+        visibleWhen: (formValue: any) => formValue.employmentStatus === 'employed'
+      },
+      {
+        name: 'businessName',
+        label: 'Business Name',
+        type: 'text',
+        visibleWhen: (formValue: any) => formValue.employmentStatus === 'selfEmployed'
+      },
+      {
+        name: 'lastEmploymentDate',
+        label: 'Date of Last Employment',
+        type: 'date',
+        visibleWhen: (formValue: any) => formValue.employmentStatus === 'unemployed'
+      }
+    ]
+  };
 
   selectForm(formType: string) {
     switch (formType) {
@@ -410,6 +447,10 @@ export class ExampleComponent {
         break;
       case 'multiStep':
         this.selectedFormTitle = 'Multi Step Form';
+        this.selectedFormConfig = this.validationFormConfig;
+        break;
+      case 'conditional':
+        this.selectedFormTitle = 'Conditional Form';
         this.selectedFormConfig = this.validationFormConfig;
         break;
       default:

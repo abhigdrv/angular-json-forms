@@ -261,7 +261,7 @@ import { FormGeneratorService } from '../../services/form-generator.service';
         </ng-container>
       </ng-container>
       
-      <div *ngIf="form.get(field.name)?.invalid && (form.get(field.name)?.dirty || form.get(field.name)?.touched)" [ngClass]="globalErrorClass">
+      <div *ngIf="form.get(field.name)?.invalid && (form.get(field.name)?.dirty || form.get(field.name)?.touched)" [ngClass]="globalErrorClass" [ngStyle]="globalErrorStyle">
         <small *ngIf="form.get(field.name)?.errors?.['required']">This field is required</small>
         <small *ngIf="form.get(field.name)?.errors?.['email']">Please enter a valid email</small>
         <small *ngIf="form.get(field.name)?.errors?.['minlength']">Input is too short</small>

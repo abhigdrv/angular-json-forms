@@ -91,4 +91,9 @@
       </app-dynamic-form>
     </ng-container>
   </div>
+  <div class="sidebar-right" *ngIf="selectedFormConfig">
+    <div class="">
+      <pre>{{selectedFormConfig | json}}</pre>
+    </div>
+  </div>
 </section>

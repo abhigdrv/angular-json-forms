@@ -447,11 +447,11 @@ export class ExampleComponent {
         break;
       case 'multiStep':
         this.selectedFormTitle = 'Multi Step Form';
-        this.selectedFormConfig = this.validationFormConfig;
+        this.selectedFormConfig = this.multiStepFormConfig;
         break;
       case 'conditional':
         this.selectedFormTitle = 'Conditional Form';
-        this.selectedFormConfig = this.validationFormConfig;
+        this.selectedFormConfig = this.conditionalFormConfig;
         break;
       default:
         this.selectedFormTitle = 'Select a form';

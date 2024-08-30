@@ -10,36 +10,94 @@ import { FormGeneratorService } from '../../services/form-generator.service';
       <label [for]="field.name" [ngStyle]="getLabelStyle()">{{ field.label }}</label>
       
       <ng-container [ngSwitch]="field.type">
+        <!-- Text inputs -->
         <input *ngSwitchCase="'text'" [formControlName]="field.name" [id]="field.name" type="text"
-               [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
         <input *ngSwitchCase="'number'" [formControlName]="field.name" [id]="field.name" type="number"
-               [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
         <input *ngSwitchCase="'email'" [formControlName]="field.name" [id]="field.name" type="email"
-               [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
         <input *ngSwitchCase="'password'" [formControlName]="field.name" [id]="field.name" type="password"
-               [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
-        
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'search'" [formControlName]="field.name" [id]="field.name" type="search"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'tel'" [formControlName]="field.name" [id]="field.name" type="tel"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'url'" [formControlName]="field.name" [id]="field.name" type="url"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+
+        <!-- Date and time inputs -->
+        <input *ngSwitchCase="'date'" [formControlName]="field.name" [id]="field.name" type="date"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'time'" [formControlName]="field.name" [id]="field.name" type="time"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'datetime-local'" [formControlName]="field.name" [id]="field.name" type="datetime-local"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'month'" [formControlName]="field.name" [id]="field.name" type="month"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'week'" [formControlName]="field.name" [id]="field.name" type="week"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+              
+        <!-- Range and color inputs -->
+        <input *ngSwitchCase="'range'" [formControlName]="field.name" [id]="field.name" type="range"
+              [min]="field.min" [max]="field.max" [step]="field.step"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+        <input *ngSwitchCase="'color'" [formControlName]="field.name" [id]="field.name" type="color"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+
+        <!-- File input -->
+        <input *ngSwitchCase="'file'" [formControlName]="field.name" [id]="field.name" type="file"
+              [accept]="field.accept" [multiple]="field.multiple"
+              [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+
+        <!-- Select dropdown -->
         <select *ngSwitchCase="'select'" [formControlName]="field.name" [id]="field.name"
                 [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
           <option *ngFor="let option of field.options" [value]="option.key">{{ option.value }}</option>
         </select>
-        
+
+        <!-- Multiple select -->
+        <select *ngSwitchCase="'multiselect'" [formControlName]="field.name" [id]="field.name" multiple
+                [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+          <option *ngFor="let option of field.options" [value]="option.key">{{ option.value }}</option>
+        </select>
+
+        <!-- Radio buttons -->
         <ng-container *ngSwitchCase="'radio'">
           <div *ngFor="let option of field.options">
             <input type="radio" [formControlName]="field.name" [value]="option.key" [id]="option.key"
-                   [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+                  [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
             <label [for]="option.key">{{ option.value }}</label>
           </div>
         </ng-container>
-        
+
+        <!-- Checkbox -->
         <ng-container *ngSwitchCase="'checkbox'">
           <input type="checkbox" [formControlName]="field.name" [id]="field.name"
-                 [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+                [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+          <label [for]="field.name">{{ field.label }}</label>
         </ng-container>
-        
+
+        <!-- Multiple checkboxes -->
+        <ng-container *ngSwitchCase="'checkboxgroup'">
+          <div *ngFor="let option of field.options">
+            <input type="checkbox" [formControlName]="option.key" [id]="option.key"
+                  [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()">
+            <label [for]="option.key">{{ option.value }}</label>
+          </div>
+        </ng-container>
+
+        <!-- Textarea -->
         <textarea *ngSwitchCase="'textarea'" [formControlName]="field.name" [id]="field.name"
+                  [rows]="field.rows" [cols]="field.cols"
                   [ngClass]="getFieldClass()" [ngStyle]="getFieldStyle()"></textarea>
-        
+
+        <!-- Hidden input -->
+        <input *ngSwitchCase="'hidden'" [formControlName]="field.name" [id]="field.name" type="hidden">
+
+        <!-- Default case -->
+        <p *ngSwitchDefault>Unsupported field type: {{ field.type }}</p>
+
         <ng-container *ngSwitchCase="'formGroup'">
           <ng-container *ngIf="isFormGroup(field.name)">
             <app-dynamic-form 

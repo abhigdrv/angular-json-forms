@@ -1,16 +1,24 @@
 export interface ValidationConfig {
   name: string;
   validator: any;
+  message?: string;
 }
 
 export interface FieldStyle {
   [key: string]: string;
 }
 
+export type InputType = 
+  'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url' |
+  'date' | 'time' | 'datetime-local' | 'month' | 'week' |
+  'range' | 'color' | 'file' |
+  'select' | 'multiselect' | 'radio' | 'checkbox' | 'checkboxgroup' |
+  'textarea' | 'hidden' | 'formGroup' | 'formArray';
+
 export interface FormFieldConfig {
   name: string;
   label: string;
-  type: 'text' | 'number' | 'email' | 'password' | 'select' | 'radio' | 'checkbox' | 'textarea' | 'formGroup' | 'formArray';
+  type: InputType;
   value?: any;
   options?: { key: string; value: string }[];
   validations?: ValidationConfig[];
@@ -21,6 +29,18 @@ export interface FormFieldConfig {
   };
   class?: string;
   style?: FieldStyle;
+  placeholder?: string;
+  disabled?: boolean;
+  readonly?: boolean;
+  min?: number | string;
+  max?: number | string;
+  step?: number;
+  accept?: string;
+  multiple?: boolean;
+  rows?: number;
+  cols?: number;
+  autocomplete?: string;
+  required?: boolean;
 }
 
 export interface FormConfig {
@@ -29,4 +49,6 @@ export interface FormConfig {
   globalStyle?: FieldStyle;
   globalErrorClass?: string;
   globalErrorStyle?: FieldStyle;
+  submitButtonText?: string;
+  cancelButtonText?: string;
 }

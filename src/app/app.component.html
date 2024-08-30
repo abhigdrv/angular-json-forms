@@ -1,9 +1,71 @@
-<h1>Dynamic Form Example</h1>
-<app-dynamic-form 
-  [fields]="formConfig.fields"
-  [globalClass]="formConfig.globalClass"
-  [globalStyle]="formConfig.globalStyle"
-  [globalErrorClass]="formConfig.globalErrorClass"
-  [globalErrorStyle]="formConfig.globalErrorStyle"
-  (formSubmit)="onFormSubmit($event)">
-</app-dynamic-form>
+<section class="home">
+  <div class="sidebar">
+    <h2>Dynamic Form Examples</h2>
+    <ul>
+        <li (click)="selectForm('basic')">Basic Form</li>
+        <li (click)="selectForm('advanced')">Advanced Form</li>
+        <li (click)="selectForm('nested')">Nested Form</li>
+        <li (click)="selectForm('array')">Form Array</li>
+        <li (click)="selectForm('validation')">Custom Validation</li>
+        <li (click)="selectForm('conditional')">Conditional Fields</li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <h1>{{ selectedFormTitle }}</h1>
+    <ng-container *ngIf="selectedFormTitle == 'Basic Form'">
+      <app-dynamic-form 
+        *ngIf="basicFormConfig"
+        [fields]="basicFormConfig.fields"
+        [globalClass]="basicFormConfig.globalClass"
+        [globalStyle]="basicFormConfig.globalStyle"
+        [globalErrorClass]="basicFormConfig.globalErrorClass"
+        [globalErrorStyle]="basicFormConfig.globalErrorStyle"
+        (formSubmit)="onFormSubmit($event)">
+      </app-dynamic-form>
+    </ng-container>
+    <ng-container *ngIf="selectedFormTitle == 'Advanced Form'">
+      <app-dynamic-form 
+        *ngIf="advancedFormConfig"
+        [fields]="advancedFormConfig.fields"
+        [globalClass]="advancedFormConfig.globalClass"
+        [globalStyle]="advancedFormConfig.globalStyle"
+        [globalErrorClass]="advancedFormConfig.globalErrorClass"
+        [globalErrorStyle]="advancedFormConfig.globalErrorStyle"
+        (formSubmit)="onFormSubmit($event)">
+      </app-dynamic-form>
+    </ng-container>
+    <ng-container *ngIf="selectedFormTitle == 'Nested Form'">
+      <app-dynamic-form 
+        *ngIf="nestedFormConfig"
+        [fields]="nestedFormConfig.fields"
+        [globalClass]="nestedFormConfig.globalClass"
+        [globalStyle]="nestedFormConfig.globalStyle"
+        [globalErrorClass]="nestedFormConfig.globalErrorClass"
+        [globalErrorStyle]="nestedFormConfig.globalErrorStyle"
+        (formSubmit)="onFormSubmit($event)">
+      </app-dynamic-form>
+    </ng-container>
+    <ng-container *ngIf="selectedFormTitle == 'Form Array'">
+      <app-dynamic-form 
+        *ngIf="arrayFormConfig"
+        [fields]="arrayFormConfig.fields"
+        [globalClass]="arrayFormConfig.globalClass"
+        [globalStyle]="arrayFormConfig.globalStyle"
+        [globalErrorClass]="arrayFormConfig.globalErrorClass"
+        [globalErrorStyle]="arrayFormConfig.globalErrorStyle"
+        (formSubmit)="onFormSubmit($event)">
+      </app-dynamic-form>
+    </ng-container>
+    <ng-container *ngIf="selectedFormTitle == 'Custom Validation Form'">
+      <app-dynamic-form 
+        *ngIf="validationFormConfig"
+        [fields]="validationFormConfig.fields"
+        [globalClass]="validationFormConfig.globalClass"
+        [globalStyle]="validationFormConfig.globalStyle"
+        [globalErrorClass]="validationFormConfig.globalErrorClass"
+        [globalErrorStyle]="validationFormConfig.globalErrorStyle"
+        (formSubmit)="onFormSubmit($event)">
+      </app-dynamic-form>
+    </ng-container>
+  </div>
+</section>

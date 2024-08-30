@@ -22,7 +22,7 @@ Angular JSON Form is a powerful and flexible library for generating dynamic form
 To install the Angular JSON Form library, run the following command in your Angular project:
 
 ```bash
-npm install angular-json-form
+npm install angular14-json-form
 ```
 
 ## 3. Usage

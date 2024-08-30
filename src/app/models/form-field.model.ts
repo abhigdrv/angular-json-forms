@@ -21,6 +21,7 @@ export interface FormFieldConfig {
   type: InputType;
   value?: any;
   options?: { key: string; value: string }[];
+  apiUrl?: string;
   validations?: ValidationConfig[];
   formGroup?: { fields: FormFieldConfig[] };
   formArray?: {

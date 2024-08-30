@@ -200,6 +200,7 @@ export class ExampleComponent {
           { key: 'admin', value: 'Administrator' },
           { key: 'guest', value: 'Guest' }
         ],
+        apiUrl:"https://mocki.io/v1/9ab9b2f4-3443-4b7b-8e96-a3715458da6d",
         validations: [
           { name: 'required', validator: null, message: 'Please select a role' }
         ]
@@ -342,6 +343,49 @@ export class ExampleComponent {
     ]
   };
 
+  //6. Multi step 
+  multiStepFormConfig: FormConfig = {
+    ...this.globalFormConfig,
+    fields: [
+      {
+        name: 'step1',
+        label: 'Step 1',
+        type: 'formGroup',
+        formGroup: {
+          fields: [
+            {
+              name: 'email',
+              label: 'Email',
+              type: 'email',
+              validations: [
+                { name: 'required', validator: null, message: 'Email is required' },
+                { name: 'email', validator: null, message: 'Invalid email format' }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        name: 'step2',
+        label: 'Step 2',
+        type: 'formGroup',
+        formGroup: {
+          fields: [
+            {
+              name: 'phone',
+              label: 'Phone Number',
+              type: 'tel',
+              validations: [
+                { name: 'required', validator: null, message: 'Phone number is required' }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  };
+  
+
   selectForm(formType: string) {
     switch (formType) {
       case 'basic':
@@ -362,6 +406,10 @@ export class ExampleComponent {
         break;
       case 'validation':
         this.selectedFormTitle = 'Custom Validation Form';
+        this.selectedFormConfig = this.validationFormConfig;
+        break;
+      case 'multiStep':
+        this.selectedFormTitle = 'Multi Step Form';
         this.selectedFormConfig = this.validationFormConfig;
         break;
       default:

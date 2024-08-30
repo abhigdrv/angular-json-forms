@@ -7,6 +7,7 @@
         <li [ngClass]="selectedFormTitle == 'Nested Form'?'selected':''" (click)="selectForm('nested')">Nested Form</li>
         <li [ngClass]="selectedFormTitle == 'Form Array'?'selected':''" (click)="selectForm('array')">Form Array</li>
         <li [ngClass]="selectedFormTitle == 'Custom Validation Form'?'selected':''" (click)="selectForm('validation')">Custom Validation</li>
+        <li [ngClass]="selectedFormTitle == 'Multi Step Form'?'selected':''" (click)="selectForm('multiStep')">Multi Step Form</li>
     </ul>
   </div>
   <div class="main-content">
@@ -63,6 +64,17 @@
         [globalStyle]="validationFormConfig.globalStyle"
         [globalErrorClass]="validationFormConfig.globalErrorClass"
         [globalErrorStyle]="validationFormConfig.globalErrorStyle"
+        (formSubmit)="onFormSubmit($event)">
+      </app-dynamic-form>
+    </ng-container>
+    <ng-container *ngIf="selectedFormTitle == 'Multi Step Form'">
+      <app-dynamic-form 
+        *ngIf="multiStepFormConfig"
+        [fields]="multiStepFormConfig.fields"
+        [globalClass]="multiStepFormConfig.globalClass"
+        [globalStyle]="multiStepFormConfig.globalStyle"
+        [globalErrorClass]="multiStepFormConfig.globalErrorClass"
+        [globalErrorStyle]="multiStepFormConfig.globalErrorStyle"
         (formSubmit)="onFormSubmit($event)">
       </app-dynamic-form>
     </ng-container>

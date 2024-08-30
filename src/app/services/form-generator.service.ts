@@ -1,27 +1,47 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { FormFieldConfig, ValidationConfig } from '../models/form-field.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormGeneratorService {
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   createFormGroup(fields: FormFieldConfig[]): FormGroup {
     const group: any = {};
     
-    fields.forEach(field => {
+    fields.forEach(async (field) => {
       if (field.type === 'formGroup' && field.formGroup) {
         group[field.name] = this.createFormGroup(field.formGroup.fields);
       } else if (field.type === 'formArray' && field.formArray) {
         group[field.name] = this.createFormArray(field);
       } else {
         group[field.name] = [field.value || '', this.bindValidations(field.validations || [])];
+        if(field.options && field.apiUrl){
+          await this.fetchOptionsFromApi(field);
+        }
       }
     });
     
     return this.fb.group(group);
+  }
+
+  async fetchOptionsFromApi(field: FormFieldConfig) {
+    if (field.apiUrl) { 
+      this.http.get<{ key: string; value: string }[]>(field.apiUrl).subscribe({
+        next: (response: any) => {
+          if(response.data) field.options = response.data;
+        },
+        error: (error: any) => { 
+          console.error(`Failed to fetch options for ${field.name}:`, error);
+        },
+        complete: () => {}
+      });
+    } else {
+      console.error(`API URL is not defined for field: ${field.name}`);
+    }
   }
 
   createFormArray(config: FormFieldConfig): FormArray {

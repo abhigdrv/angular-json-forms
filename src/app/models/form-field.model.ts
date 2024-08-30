@@ -30,6 +30,8 @@ export interface FormFieldConfig {
   };
   class?: string;
   style?: FieldStyle;
+  labelClass?: string;
+  labelStyle?: FieldStyle;
   placeholder?: string;
   disabled?: boolean;
   readonly?: boolean;
@@ -65,6 +67,8 @@ export interface FormConfig {
   globalStyle?: FieldStyle;
   globalErrorClass?: string;
   globalErrorStyle?: FieldStyle;
+  globalLabelClass?: string;
+  globalLabelStyle?: FieldStyle;
   submitButtonText?: string;
   cancelButtonText?: string;
 }

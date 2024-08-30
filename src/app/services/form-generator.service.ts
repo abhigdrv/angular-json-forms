@@ -18,7 +18,7 @@ export class FormGeneratorService {
       } else if (field.type === 'formArray' && field.formArray) {
         group[field.name] = this.createFormArray(field);
       } else {
-        group[field.name] = [field.value || '', this.bindValidations(field.validations || [])];
+        group[field.name] = [{ value: field.value || '', disabled: field.disabled || false }, this.bindValidations(field.validations || [])];
         if(field.options && field.apiUrl){
           await this.fetchOptionsFromApi(field);
         }

@@ -152,6 +152,8 @@ export class ExampleComponent {
         name: 'age',
         label: 'Age',
         type: 'number',
+        disabled: true,
+        value:22,
         validations: [
           { name: 'required', validator: null, message: 'Age is required' },
           { name: 'min', validator: 18, message: 'Must be at least 18 years old' }

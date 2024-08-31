@@ -10,6 +10,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { HttpClientModule } from '@angular/common/http';
 import { DocComponent } from './components/doc/doc.component';
 import { ExampleComponent } from './components/example/example.component';
+import { MultiStepFormComponent } from './components/multi-step-form/multi-step-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ExampleComponent } from './components/example/example.component';
     FormFieldComponent,
     DynamicFormComponent,
     DocComponent,
-    ExampleComponent
+    ExampleComponent,
+    MultiStepFormComponent
   ],
   imports: [
     BrowserModule,

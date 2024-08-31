@@ -69,7 +69,7 @@
       </app-dynamic-form>
     </ng-container>
     <ng-container *ngIf="selectedFormTitle == 'Multi Step Form'">
-      <app-dynamic-form 
+      <app-multi-step-form 
         *ngIf="multiStepFormConfig"
         [fields]="multiStepFormConfig.fields"
         [globalClass]="multiStepFormConfig.globalClass"
@@ -77,7 +77,7 @@
         [globalErrorClass]="multiStepFormConfig.globalErrorClass"
         [globalErrorStyle]="multiStepFormConfig.globalErrorStyle"
         (formSubmit)="onFormSubmit($event)">
-      </app-dynamic-form>
+      </app-multi-step-form>
     </ng-container>
     <ng-container *ngIf="selectedFormTitle == 'Conditional Form'">
       <app-dynamic-form 

@@ -351,7 +351,7 @@ export class ExampleComponent {
     fields: [
       {
         name: 'step1',
-        label: 'Step 1',
+        label: 'Step 1: Contact Information',
         type: 'formGroup',
         formGroup: {
           fields: [
@@ -363,13 +363,21 @@ export class ExampleComponent {
                 { name: 'required', validator: null, message: 'Email is required' },
                 { name: 'email', validator: null, message: 'Invalid email format' }
               ]
+            },
+            {
+              name: 'fullName',
+              label: 'Full Name',
+              type: 'text',
+              validations: [
+                { name: 'required', validator: null, message: 'Full name is required' }
+              ]
             }
           ]
         }
       },
       {
         name: 'step2',
-        label: 'Step 2',
+        label: 'Step 2: Personal Details',
         type: 'formGroup',
         formGroup: {
           fields: [
@@ -380,12 +388,42 @@ export class ExampleComponent {
               validations: [
                 { name: 'required', validator: null, message: 'Phone number is required' }
               ]
+            },
+            {
+              name: 'address',
+              label: 'Address',
+              type: 'textarea',
+              validations: [
+                { name: 'required', validator: null, message: 'Address is required' }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        name: 'step3',
+        label: 'Step 3: Additional Information',
+        type: 'formGroup',
+        formGroup: {
+          fields: [
+            {
+              name: 'comments',
+              label: 'Comments',
+              type: 'textarea',
+              validations: []
+            },
+            {
+              name: 'subscribe',
+              label: 'Subscribe to Newsletter',
+              type: 'checkbox',
+              validations: []
             }
           ]
         }
       }
     ]
   };
+  
   
   // 7. Conditional Fields Form Configuration
   conditionalFormConfig: FormConfig = {
